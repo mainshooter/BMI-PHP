@@ -56,11 +56,21 @@
 
 <?php
 
+  /**
+   * Converts all dots to commas
+   * @param  [string] $string [A string that contains . that needs to go to ,]
+   * @return [string]         [The converted string]
+   */
   function dotToComma($string) {
     $string = str_replace('.', ',', $string);
     return(floatval($string));
   }
 
+  /**
+   * Convert all comm's to dots
+   * @param  [type] $string [description]
+   * @return [type]         [description]
+   */
   function commaToDot($string) {
     $string = str_replace(',', '.', $string);
     return(floatval($string));
