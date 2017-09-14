@@ -59,17 +59,17 @@
   /**
    * Converts all dots to commas
    * @param  [string] $string [A string that contains . that needs to go to ,]
-   * @return [string]         [The converted string]
+   * @return [string]         [The converted number]
    */
   function dotToComma($string) {
     $string = str_replace('.', ',', $string);
-    return(floatval($string));
+    return($string);
   }
 
   /**
    * Convert all comm's to dots
    * @param  [type] $string [description]
-   * @return [type]         [description]
+   * @return [float]         [The transformed number]
    */
   function commaToDot($string) {
     $string = str_replace(',', '.', $string);
@@ -112,6 +112,7 @@
   if (ISSET($_POST['calculateBMI'])) {
     $bmi = calculateBMI();
     $bmiHealty = checkIfBMIIsHealty($bmi);
+    $bmi = dotToComma($bmi);
     echo "<p class='col-12 center'>Uw BMI is: $bmi <br>";
     echo "Het is: $bmiHealty";
     echo '</p>';
