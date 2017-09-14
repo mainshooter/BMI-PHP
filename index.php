@@ -33,7 +33,33 @@
     <script src="js/main.js"></script>
     <script src="js/project.js"></script>
   </head>
-<body>
+
+<?php
+  if (ISSET($_COOKIE['color'])) {
+    if (ISSET($_GET['color'])) {
+      if ($_GET['color'] <> $_COOKIE['color']) {
+        updateColor($_GET['color']);
+      }
+    }
+    echo '<body style="background-color: ' . $_COOKIE['color'] . ';">';
+
+  }
+
+  else if (ISSET($_GET['color'])) {
+    setcookie('color', $_GET['color'], time() + 100);
+  }
+  else {
+    echo "<body>";
+  }
+
+  function updateColor($color) {
+    setcookie('color', $color, time() + 100);
+    header("Refresh:0; url=index.php");
+  }
+
+
+?>
+
 
   <div class="header">
       <img src="image/logo.png">
@@ -121,6 +147,15 @@
 
 
 ?>
+</div>
+
+<div class="row">
+  <div class="col-12 center">
+    <h3>Kies een kleur</h3>
+    <br>
+    <br>
+    <a href="?color=blue">Blauw</a>       <a href="?color=red">Rood</a>
+  </div>
 </div>
 
 <div class="footer">
