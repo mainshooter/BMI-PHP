@@ -35,26 +35,30 @@
   </head>
 
 <?php
-  if (ISSET($_COOKIE['color'])) {
-    if (ISSET($_GET['color'])) {
-      if ($_GET['color'] <> $_COOKIE['color']) {
-        updateColor($_GET['color']);
-      }
-    }
-    echo '<body style="background-color: ' . $_COOKIE['color'] . ';">';
-
+  if (ISSET($_GET['color'])) {
+      updateColorCookie($_GET['color']);
+      changeBodyColor($_GET['color']);
+  }
+  else if (ISSET($_COOKIE['color'])) {
+    changeBodyColor($_COOKIE['color']);
   }
 
-  else if (ISSET($_GET['color'])) {
-    setcookie('color', $_GET['color'], time() + 100);
-  }
   else {
-    echo "<body>";
+    changeBodyColor();
   }
 
-  function updateColor($color) {
+  function changeBodyColor($color = false) {
+    if (!$color) {
+      echo "<body>";
+    }
+
+    else {
+      echo '<body style="background-color: ' . $color . ';">';
+    }
+  }
+
+  function updateColorCookie($color) {
     setcookie('color', $color, time() + 100);
-    header("Refresh:0; url=index.php");
   }
 
 
