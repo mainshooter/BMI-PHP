@@ -58,7 +58,7 @@
   }
 
   function updateColorCookie($color) {
-    setcookie('color', $color, time() + 100);
+    setcookie('color', $color, time() + 1000);
   }
 
 
