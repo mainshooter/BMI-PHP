@@ -40,23 +40,81 @@
       <h1><a href="">Template</a></h1>
       <div id="loader"></div>
   </div>
-  <div class="col-3 col-m-12 menu">
-    <ul>
-      <li><a href="">Home</a></li>
-      <li><a href="">The City</a></li>
-      <li><a href="">The Island</a></li>
-      <li><a href="">The Food</a></li>
-    </ul>
-  </div>
   <div class="row">
-    <div class="col-6">
-
+    <div class="col-12">
+      <form method="post" class="center">
+        <label>Lengte</label>
+        <input type="text" name="personLenght">
+        <br>
+        <label>Gewicht in KG</label>
+        <input type="text" name="personWeight">
+        <br>
+        <br>
+        <input type="submit" name="calculateBMI" value="Berekenen">
+      </form>
     </div>
-  </div>
 
-  <div class="footer">
-    <h1>&copy; Peter Romijn</h1>
-  </div>
+<?php
 
-  </body>
+  function dotToComma($string) {
+    $string = str_replace('.', ',', $string);
+    return(floatval($string));
+  }
+
+  function commaToDot($string) {
+    $string = str_replace(',', '.', $string);
+    return(floatval($string));
+  }
+
+  function getPersonWeight() {
+    return($_REQUEST['personWeight']);
+  }
+  function getPersonLenght() {
+    return($_REQUEST['personLenght']);
+  }
+
+  function calculateBMI() {
+    $weight = getPersonWeight();
+    $weight = commaToDot($weight);
+
+    $lenght = getPersonLenght();
+    $lenght = commaToDot($lenght);
+
+    $bmi = $weight / ($lenght * $lenght);
+    $bmi = round($bmi, 2);
+    return($bmi);
+  }
+
+  function checkIfBMIIsHealty($bmi) {
+    if ($bmi < 18.5) {
+      return('Ongezond');
+    }
+
+    else if ($bmi > 18.6 && $bmi < 24.9) {
+      return('Gezond');
+    }
+
+    else {
+      return('Ongezond');
+    }
+  }
+
+  if (ISSET($_POST['calculateBMI'])) {
+    $bmi = calculateBMI();
+    $bmiHealty = checkIfBMIIsHealty($bmi);
+    echo "<p class='col-12 center'>Uw BMI is: $bmi <br>";
+    echo "Het is: $bmiHealty";
+    echo '</p>';
+  }
+
+
+
+?>
+</div>
+
+<div class="footer">
+  <h1>&copy; Peter Romijn</h1>
+</div>
+
+</body>
 </html>
