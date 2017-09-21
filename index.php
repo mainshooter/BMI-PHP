@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -82,6 +83,22 @@
         <br>
         <input type="submit" name="calculateBMI" value="Berekenen">
       </form>
+
+      <table>
+        <?php
+        if (ISSET($_SESSION['bmi-history'])) {
+          echo "<h3>Geschidenis</h3>";
+          foreach ($_SESSION['bmi-history'] as $index => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+          }
+        }
+
+
+        ?>
+      </table>
+
     </div>
 
 <?php
@@ -146,6 +163,10 @@
     echo "<p class='col-12 center'>Uw BMI is: $bmi <br>";
     echo "Het is: $bmiHealty";
     echo '</p>';
+    if ($bmi != '0') {
+      $_SESSION['bmi-history'][] = $bmi;
+    }
+
   }
 
 
